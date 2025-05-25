@@ -3,8 +3,15 @@ HELP.md
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
+!**/src/main/**/bin/
+!**/src/main/**/out/
+
+*.jar
+*.war
 !**/src/test/**/build/
 /src/main/resources/application.yml
+docker-compose*.yml
+
 
 ### STS ###
 .apt_generated
