@@ -7,6 +7,16 @@
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/main/**/bin/
+!**/src/main/**/out/
+
+*.jar
+*.war
+!**/src/test/**/build/
+/src/main/resources/application.yml
+docker-compose*.yml
+
 
 # IntelliJ IDEA
 .idea/
@@ -35,5 +45,13 @@ dist/
 nbdist/
 .nb-gradle/
 
-# Docs
-HELP.md
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+/src/main/resources/application.yml
