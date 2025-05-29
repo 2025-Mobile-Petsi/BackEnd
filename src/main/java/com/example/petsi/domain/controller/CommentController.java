@@ -36,6 +36,11 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CommentResponseDto> getCommentById(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.getCommentById(id));
+    }
+
     @GetMapping("/community/{comunityId}")
     public ResponseEntity<List<CommentResponseDto>> getByCommunity(@PathVariable Long comunityId) {
         return ResponseEntity.ok(commentService.getCommentsByCommunity(comunityId));

@@ -59,6 +59,12 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public CommentResponseDto getCommentById(Long id) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("댓글이 존재하지 않습니다."));
+        return toResponse(comment);
+    }
+
 
     private CommentResponseDto toResponse(Comment c) {
         return CommentResponseDto.builder()
