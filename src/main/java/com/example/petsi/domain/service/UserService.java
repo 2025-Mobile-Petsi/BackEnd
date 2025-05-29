@@ -45,6 +45,12 @@ public class UserService {
         return toResponse(user);
     }
 
+    public ResponseUserDto getUserById(Long id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원"));
+        return toResponse(user);
+    }
+
     public ResponseUserDto getUserByEmail(String email) {
         User user = repository.findByEmail(email)
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원"));
