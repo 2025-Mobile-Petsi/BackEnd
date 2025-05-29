@@ -15,7 +15,6 @@ build/
 *.war
 !**/src/test/**/build/
 /src/main/resources/application.yml
-docker-compose*.yml
 
 
 # IntelliJ IDEA
