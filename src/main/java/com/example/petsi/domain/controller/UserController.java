@@ -27,6 +27,12 @@ public class UserController {
         return ResponseEntity.ok(userService.login(dto));
     }
 
+    @GetMapping("/{user_id}")
+    public ResponseEntity<ResponseUserDto> getUser(@PathVariable Long user_id) {
+        ResponseUserDto resp = userService.getUserById(user_id);
+        return ResponseEntity.ok(resp);
+    }
+
     @GetMapping("/email/{email}")
     public ResponseEntity<ResponseUserDto> email(@PathVariable String email) {
         ResponseUserDto resp = userService.getUserByEmail(email);
