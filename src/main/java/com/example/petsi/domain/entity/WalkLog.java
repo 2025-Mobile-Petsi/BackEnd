@@ -1,9 +1,7 @@
 package com.example.petsi.domain.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
