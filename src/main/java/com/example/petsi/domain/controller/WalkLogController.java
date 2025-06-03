@@ -1,6 +1,6 @@
 package com.example.petsi.domain.controller;
 
-import com.example.petsi.domain.dto.request.CreateWalkLogRequestDto;
+import com.example.petsi.domain.dto.request.EndWalkLogRequestDto;
 import com.example.petsi.domain.dto.response.WalkLogResponseDto;
 import com.example.petsi.domain.service.WalkLogService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,14 @@ public class WalkLogController {
 
     private final WalkLogService walkLogService;
 
-    @PostMapping
-    public ResponseEntity<WalkLogResponseDto> create(@RequestBody CreateWalkLogRequestDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(walkLogService.createLog(dto));
+    @PostMapping("/start")
+    public ResponseEntity<WalkLogResponseDto> startWalk(@RequestParam Long userId) {
+        return ResponseEntity.ok(walkLogService.startWalk(userId));
+    }
+
+    @PutMapping("/end/{walkLogId}")
+    public ResponseEntity<WalkLogResponseDto> endWalk(@PathVariable Long walkLogId, @RequestBody EndWalkLogRequestDto dto) {
+        return ResponseEntity.ok(walkLogService.endWalk(walkLogId, dto));
     }
 
     @GetMapping("/user/{userId}")

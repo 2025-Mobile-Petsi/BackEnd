@@ -27,4 +27,10 @@ public class WalkLog extends BaseEntity{
     private LocalDateTime endTime;
     private double distance;
     private String weather;
+
+    public void endWalk(LocalDateTime endTime, double distance, String weather) {
+        this.endTime = endTime;
+        this.distance = distance;
+        this.weather = weather;
+    }
 }
