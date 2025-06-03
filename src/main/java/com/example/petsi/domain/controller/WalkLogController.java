@@ -4,7 +4,6 @@ import com.example.petsi.domain.dto.request.EndWalkLogRequestDto;
 import com.example.petsi.domain.dto.response.WalkLogResponseDto;
 import com.example.petsi.domain.service.WalkLogService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.example.petsi.domain.entity;
 
 import com.example.petsi.domain.type.CommunityCategory;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import jakarta.persistence.*;
 import lombok.*;
 
