@@ -1,6 +1,5 @@
 package com.example.petsi.domain.controller;
 
-import com.example.petsi.domain.dto.request.CreateWalkLogRequestDto;
 import com.example.petsi.domain.dto.request.EndWalkLogRequestDto;
 import com.example.petsi.domain.dto.response.WalkLogResponseDto;
 import com.example.petsi.domain.service.WalkLogService;
