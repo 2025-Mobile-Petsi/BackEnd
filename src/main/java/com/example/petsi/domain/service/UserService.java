@@ -5,6 +5,7 @@ import com.example.petsi.domain.dto.request.SignUpRequestUserDto;
 import com.example.petsi.domain.dto.response.ResponseUserDto;
 import com.example.petsi.domain.entity.User;
 import com.example.petsi.domain.repository.UserRepository;
+import com.example.petsi.infrastructure.sms.service.SmsVerificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,10 +19,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final PasswordEncoder encoder;
-
+    private final SmsVerificationService smsVerificationService;
 
     public ResponseUserDto signUp(SignUpRequestUserDto dto) {
 
+        if (!smsVerificationService.verifyCode(dto.getPhoneNumber(), dto.getVerificationCode())) {
+            throw new IllegalArgumentException("인증번호가 일치하지 않습니다.");
+        }
         repository.findByEmail(dto.getEmail())
                 .ifPresent(u -> { throw new IllegalArgumentException("이미 존재하는 이메일"); });
 
@@ -29,7 +33,10 @@ public class UserService {
                 .email(dto.getEmail())
                 .password(encoder.encode(dto.getPassword()))
                 .username(dto.getUsername())
+                .phoneNumber(dto.getPhoneNumber())
                 .build());
+
+        smsVerificationService.removeCode(dto.getPhoneNumber());
 
         return toResponse(saved);
     }

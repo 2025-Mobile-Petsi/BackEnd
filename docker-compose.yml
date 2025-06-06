@@ -10,6 +10,7 @@ services:
       - ./application.yml:/app/application.yml
     depends_on:
       - mysql
+      - redis
     networks:
       - petsi-net
     entrypoint: ["java", "-jar", "/app.jar", "--spring.config.location=file:/app/application.yml"]
@@ -33,6 +34,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  redis:
+    image: redis:7.2
+    container_name: petsi-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - petsi-net
+    restart: always
 
 volumes:
   mysql-data:
