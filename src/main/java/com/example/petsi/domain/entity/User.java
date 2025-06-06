@@ -28,5 +28,8 @@ public class User extends BaseEntity{
     @Column(nullable = false, length = 255)
     private String username;
 
+    @Column(nullable = false, length = 20)
+    private String phoneNumber;
+
 }
 

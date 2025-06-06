@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestUserDto {
+public class SignUpRequestUserDto {
     @Email @NotBlank
     String email;
 
@@ -19,4 +19,8 @@ public class RequestUserDto {
 
     @NotBlank
     String username;
+
+    private String phoneNumber;
+
+    private String verificationCode;
 }

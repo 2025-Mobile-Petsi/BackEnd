@@ -1,7 +1,7 @@
 package com.example.petsi.domain.service;
 
 import com.example.petsi.domain.dto.request.LoginRequestDto;
-import com.example.petsi.domain.dto.request.RequestUserDto;
+import com.example.petsi.domain.dto.request.SignUpRequestUserDto;
 import com.example.petsi.domain.dto.response.ResponseUserDto;
 import com.example.petsi.domain.entity.User;
 import com.example.petsi.domain.repository.UserRepository;
@@ -20,7 +20,7 @@ public class UserService {
     private final PasswordEncoder encoder;
 
 
-    public ResponseUserDto signUp(RequestUserDto dto) {
+    public ResponseUserDto signUp(SignUpRequestUserDto dto) {
 
         repository.findByEmail(dto.getEmail())
                 .ifPresent(u -> { throw new IllegalArgumentException("이미 존재하는 이메일"); });
@@ -62,6 +62,7 @@ public class UserService {
                 .id(u.getId())
                 .email(u.getEmail())
                 .username(u.getUsername())
+                .phoneNumber(u.getPhoneNumber())
                 .createdAt(u.getCreatedAt())
                 .updatedAt(u.getUpdatedAt())
                 .build();
