@@ -23,9 +23,10 @@ public class UserService {
 
     public ResponseUserDto signUp(SignUpRequestUserDto dto) {
 
-        if (!smsVerificationService.verifyCode(dto.getPhoneNumber(), dto.getVerificationCode())) {
-            throw new IllegalArgumentException("인증번호가 일치하지 않습니다.");
+        if (!smsVerificationService.isVerified(dto.getPhoneNumber())) {
+            throw new IllegalArgumentException("전화번호 인증이 완료되지 않았습니다.");
         }
+
         repository.findByEmail(dto.getEmail())
                 .ifPresent(u -> { throw new IllegalArgumentException("이미 존재하는 이메일"); });
 
@@ -36,7 +37,7 @@ public class UserService {
                 .phoneNumber(dto.getPhoneNumber())
                 .build());
 
-        smsVerificationService.removeCode(dto.getPhoneNumber());
+        smsVerificationService.removeCode(dto.getPhoneNumber()); // 인증 플래그 제거
 
         return toResponse(saved);
     }

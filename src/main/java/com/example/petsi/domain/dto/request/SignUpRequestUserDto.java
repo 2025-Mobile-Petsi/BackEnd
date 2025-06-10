@@ -13,14 +13,10 @@ import lombok.*;
 public class SignUpRequestUserDto {
     @Email @NotBlank
     String email;
-
     @Size(min = 8, max= 30)
     String password;
-
     @NotBlank
     String username;
-
     private String phoneNumber;
 
-    private String verificationCode;
 }

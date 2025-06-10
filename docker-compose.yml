@@ -7,10 +7,12 @@ services:
     env_file:
       - .env
     volumes:
-      - ./application.yml:/app/application.yml
+      - ./src/main/resources/application.yml:/app/application.yml
     depends_on:
-      - mysql
-      - redis
+      redis:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
     networks:
       - petsi-net
     entrypoint: ["java", "-jar", "/app.jar", "--spring.config.location=file:/app/application.yml"]
@@ -38,11 +40,19 @@ services:
   redis:
     image: redis:7.2
     container_name: petsi-redis
+    command: [ "redis-server",
+               "--bind", "0.0.0.0",
+               "--protected-mode", "no" ]   # 개발용·사내망이라면 off
     ports:
       - "6379:6379"
     networks:
       - petsi-net
     restart: always
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mysql-data:
