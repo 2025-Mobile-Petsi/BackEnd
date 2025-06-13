@@ -15,6 +15,7 @@ public class ResponseUserDto {
     private String email;
     private String password;
     private String username;
+    private String phoneNumber;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

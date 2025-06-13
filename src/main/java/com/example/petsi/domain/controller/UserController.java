@@ -1,7 +1,7 @@
 package com.example.petsi.domain.controller;
 
 import com.example.petsi.domain.dto.request.LoginRequestDto;
-import com.example.petsi.domain.dto.request.RequestUserDto;
+import com.example.petsi.domain.dto.request.SignUpRequestUserDto;
 import com.example.petsi.domain.dto.response.ResponseUserDto;
 import com.example.petsi.domain.service.UserService;
 import jakarta.validation.Valid;
@@ -17,10 +17,10 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<ResponseUserDto> signUp(@Valid @RequestBody RequestUserDto dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.signUp(dto));
-    }
+//    @PostMapping("/signup")
+//    public ResponseEntity<ResponseUserDto> signUp(@Valid @RequestBody SignUpRequestUserDto dto) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(userService.signUp(dto));
+//    }
 
     @PostMapping("/login")
     public ResponseEntity<ResponseUserDto> login(@Valid @RequestBody LoginRequestDto dto) {

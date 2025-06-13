@@ -1,10 +1,11 @@
 package com.example.petsi.domain.service;
 
 import com.example.petsi.domain.dto.request.LoginRequestDto;
-import com.example.petsi.domain.dto.request.RequestUserDto;
+import com.example.petsi.domain.dto.request.SignUpRequestUserDto;
 import com.example.petsi.domain.dto.response.ResponseUserDto;
 import com.example.petsi.domain.entity.User;
 import com.example.petsi.domain.repository.UserRepository;
+import com.example.petsi.infrastructure.sms.service.SmsVerificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,9 +19,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final PasswordEncoder encoder;
+    private final SmsVerificationService smsVerificationService;
 
+    public ResponseUserDto signUp(SignUpRequestUserDto dto) {
 
-    public ResponseUserDto signUp(RequestUserDto dto) {
+        if (!smsVerificationService.isVerified(dto.getPhoneNumber())) {
+            throw new IllegalArgumentException("전화번호 인증이 완료되지 않았습니다.");
+        }
 
         repository.findByEmail(dto.getEmail())
                 .ifPresent(u -> { throw new IllegalArgumentException("이미 존재하는 이메일"); });
@@ -29,7 +34,10 @@ public class UserService {
                 .email(dto.getEmail())
                 .password(encoder.encode(dto.getPassword()))
                 .username(dto.getUsername())
+                .phoneNumber(dto.getPhoneNumber())
                 .build());
+
+        smsVerificationService.removeCode(dto.getPhoneNumber()); // 인증 플래그 제거
 
         return toResponse(saved);
     }
@@ -62,6 +70,7 @@ public class UserService {
                 .id(u.getId())
                 .email(u.getEmail())
                 .username(u.getUsername())
+                .phoneNumber(u.getPhoneNumber())
                 .createdAt(u.getCreatedAt())
                 .updatedAt(u.getUpdatedAt())
                 .build();
