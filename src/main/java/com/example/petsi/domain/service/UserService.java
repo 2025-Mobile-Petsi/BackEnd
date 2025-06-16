@@ -65,6 +65,10 @@ public class UserService {
         return toResponse(user);
     }
 
+    public boolean isEmailDuplicate(String email) {
+        return repository.findByEmail(email).isPresent();
+    }
+
     private ResponseUserDto toResponse(User u) {
         return ResponseUserDto.builder()
                 .id(u.getId())
